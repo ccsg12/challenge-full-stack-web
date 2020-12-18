@@ -27,9 +27,19 @@
               </thead>
 
               <tbody>
-                <tr v-for="item in desserts" :key="item.name">
-                  <td>{{ item.name }}</td>
-                  <td>{{ item.calories }}</td>
+                <tr v-for="student in students" :key="student.id">
+                  <td id="ra">{{ student.id }}</td>
+                  <td id="name">{{ student.name }}</td>
+                  <td id="cpf">{{ student.cpf }}</td>
+
+                  <td class="text-center">
+                    <v-btn class="mx-2 warning">
+                      <v-icon>mdi-pencil</v-icon>
+                    </v-btn>
+                    <v-btn class="mx-2 error">
+                      <v-icon>mdi-delete</v-icon>
+                    </v-btn>
+                  </td>
                 </tr>
               </tbody>
             </template>
@@ -44,9 +54,24 @@
 // @ is an alias to /src
 
 import navbar from "@/components/Navbar";
+import axios from "axios";
 
 export default {
   name: "Home",
   components: { navbar },
+  data() {
+    return {
+      students: [],
+    };
+  },
+  async created() {
+    try {
+      const res = await axios.get("http://localhost:8082/students");
+
+      this.students = res.data;
+    } catch (error) {
+      console.log(error);
+    }
+  },
 };
 </script>
