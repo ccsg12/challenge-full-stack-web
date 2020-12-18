@@ -5,6 +5,9 @@ const connection = require("./database/database");
 
 const app = express();
 
+//controller
+const studentsController = require("./controllers/StudentsController");
+
 //database
 connection
   .authenticate()
@@ -25,10 +28,7 @@ app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// simple route
-app.get("/", (req, res) => {
-  res.json({ message: "Welcome to bezkoder application." });
-});
+app.use("/", studentsController);
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
