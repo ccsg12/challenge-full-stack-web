@@ -72,13 +72,27 @@
               </validation-provider>
 
               <v-btn
-                color="#D7CCC8"
-                class="mr-4"
+                class="mr-4 brown lighten-4"
                 type="submit"
                 :disabled="invalid"
               >
                 Cadastar
               </v-btn>
+
+              <v-dialog v-model="dialog1" max-width="300px">
+                <v-card>
+                  <v-card-title></v-card-title>
+
+                  <v-card-text> {{ registerError }} </v-card-text>
+
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn text color="green darken-1" @click="dialog1 = false">
+                      Fechar
+                    </v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
             </form>
           </validation-observer>
         </v-card>
@@ -125,6 +139,7 @@ export default {
     cpf: "",
     email: "",
     ra: "",
+    dialog1: false,
   }),
   methods: {
     submit() {
@@ -138,10 +153,46 @@ export default {
       };
 
       axios
-        .post("http://localhost:8082/student", student)
+        .get("http://localhost:8082/students")
         .then((response) => {
-          if (response.status == 200) {
-            alert("Estudante cadastrado!");
+          var students = response.data.filter((v) => v.name == student.name);
+
+          if (students.length == 0) {
+            students = response.data.filter((v) => v.email == student.email);
+
+            if (students.length == 0) {
+              students = response.data.filter((v) => v.ra == student.ra);
+
+              if (students.length == 0) {
+                students = response.data.filter((v) => v.cpf == student.cpf);
+
+                if (students.length == 0) {
+                  axios
+                    .post("http://localhost:8082/student", student)
+                    .then((response) => {
+                      if (response.status == 200) {
+                        this.registerError = "Estudante cadastrado com sucesso";
+                        this.dialog1 = !this.dialog1;
+                      }
+                    })
+                    .catch((error) => {
+                      console.log(error);
+                    });
+                } else {
+                  this.registerError = "CPF já cadastrado";
+                  this.dialog1 = !this.dialog1;
+                }
+              } else {
+                this.registerError = "RA já cadastrado";
+                this.dialog1 = !this.dialog1;
+              }
+            } else {
+              this.registerError = "Email já cadastrado";
+              this.dialog1 = !this.dialog1;
+            }
+          } else {
+            this.registerError = "Nome já cadastrado";
+            this.dialog1 = !this.dialog1;
           }
         })
         .catch((error) => {

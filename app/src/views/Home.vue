@@ -35,11 +35,7 @@
                   <td id="cpf">{{ student.cpf }}</td>
 
                   <td class="text-center">
-                    <buttonEdit
-                      :studentData="student"
-                      @meDelete="testea($event)"
-                      @cad="updatePage()"
-                    />
+                    <buttonEdit :studentData="student" @cad="updatePage()" />
 
                     <buttonDelete :studentId="student.id" @del="updatePage()" />
                   </td>
@@ -88,9 +84,6 @@ export default {
         .catch((error) => {
           console.log(error);
         });
-    },
-    testea($event) {
-      console.log($event.name);
     },
   },
 
