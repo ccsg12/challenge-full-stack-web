@@ -1,0 +1,148 @@
+<template>
+  <v-card>
+    <v-card-title>
+      <span class="headline">Cadastro de aluno</span>
+    </v-card-title>
+
+    <v-card-text>
+      <validation-observer ref="observer" v-slot="{ invalid }">
+        <form @submit.prevent="submit">
+          <validation-provider v-slot="{ errors }" name="Name" rules="required">
+            <v-text-field
+              v-model="name"
+              :error-messages="errors"
+              label="Nome"
+              required
+            ></v-text-field>
+          </validation-provider>
+
+          <validation-provider
+            v-slot="{ errors }"
+            name="email"
+            rules="required|email"
+          >
+            <v-text-field
+              v-model="email"
+              :error-messages="errors"
+              label="E-mail"
+              required
+            ></v-text-field>
+          </validation-provider>
+
+          <validation-provider
+            v-slot="{ errors }"
+            name="ra"
+            :rules="{
+              required: true,
+              digits: 6,
+            }"
+          >
+            <v-text-field
+              v-model="ra"
+              :counter="6"
+              :error-messages="errors"
+              label="RA"
+              required
+            ></v-text-field>
+          </validation-provider>
+
+          <validation-provider
+            v-slot="{ errors }"
+            name="cpf"
+            :rules="{
+              required: true,
+              digits: 11,
+            }"
+          >
+            <v-text-field
+              v-model="cpf"
+              :counter="11"
+              :error-messages="errors"
+              label="CPF (apenas números)"
+              required
+            ></v-text-field>
+          </validation-provider>
+
+          <v-btn
+            class="mr-5 brown lighten-4 white--text"
+            small
+            type="submit"
+            :disabled="invalid"
+          >
+            Cadastar
+          </v-btn>
+
+          <v-btn small class="ml-5 error" @click="close()">
+            Cancelar
+          </v-btn>
+        </form>
+      </validation-observer>
+    </v-card-text>
+  </v-card>
+</template>
+
+<script>
+import axios from "axios";
+import { required, digits, email } from "vee-validate/dist/rules";
+import {
+  extend,
+  ValidationObserver,
+  ValidationProvider,
+  setInteractionMode,
+} from "vee-validate";
+
+setInteractionMode("eager");
+
+extend("digits", {
+  ...digits,
+  message: "{_field_} precisa de {length} digitos. ({_value_})",
+});
+
+extend("required", {
+  ...required,
+  message: "{_field_} não pode estar vazio",
+});
+
+extend("email", {
+  ...email,
+  message: "E-mail inválido",
+});
+
+export default {
+  name: "Register",
+  components: { ValidationProvider, ValidationObserver },
+  data: () => ({
+    name: "",
+    cpf: "",
+    email: "",
+    ra: "",
+  }),
+  methods: {
+    submit() {
+      this.$refs.observer.validate();
+
+      var student = {
+        name: this.name,
+        email: this.email,
+        ra: this.ra,
+        cpf: this.cpf,
+      };
+
+      axios
+        .post("http://localhost:8082/student", student)
+        .then((response) => {
+          if (response.status == 200) {
+            console.log("aluno registrado");
+            this.$emit("cad");
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    close() {
+      this.$emit("clo");
+    },
+  },
+};
+</script>

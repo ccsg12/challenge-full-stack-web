@@ -6,17 +6,36 @@
       single-line
     ></v-text-field>
 
-    <v-btn class="ml-5">
-      <span>Cadastrar aluno</span>
-    </v-btn>
+    <v-dialog v-model="dialog" persistent max-width="600px">
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn class="ml-5 brown lighten-4" v-bind="attrs" v-on="on">
+          Cadastar Aluno
+        </v-btn>
+      </template>
+
+      <register @clo="dialog = false" @cad="listen()" />
+    </v-dialog>
   </v-toolbar>
 </template>
 
 <script>
+import register from "@/components/Register.vue";
+
 export default {
   name: "Searchbar",
-  data() {
-    return {};
+  components: {
+    register,
+  },
+
+  data: () => ({
+    dialog: false,
+  }),
+
+  methods: {
+    listen() {
+      this.$emit("cad");
+      this.dialog = false;
+    },
   },
 };
 </script>

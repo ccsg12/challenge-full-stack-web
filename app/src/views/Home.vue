@@ -7,9 +7,9 @@
         <v-sheet class="white px-4 py-2 rounded-lg" width="800" height="600">
           <h1 class="text-center">Consulta de alunos</h1>
 
-          <searchbar />
+          <searchbar @cad="updatePage()" />
 
-          <v-simple-table>
+          <v-simple-table fixed-header height="400">
             <template v-slot:default>
               <thead>
                 <tr>
@@ -35,12 +35,13 @@
                   <td id="cpf">{{ student.cpf }}</td>
 
                   <td class="text-center">
-                    <v-btn class="mx-2 warning">
-                      <v-icon>mdi-pencil</v-icon>
-                    </v-btn>
-                    <v-btn class="mx-2 error">
-                      <v-icon>mdi-delete</v-icon>
-                    </v-btn>
+                    <buttonEdit
+                      :studentData="student"
+                      @meDelete="testea($event)"
+                      @cad="updatePage()"
+                    />
+
+                    <buttonDelete :studentId="student.id" @del="updatePage()" />
                   </td>
                 </tr>
               </tbody>
@@ -58,15 +59,41 @@
 import navbar from "@/components/Navbar";
 import axios from "axios";
 import searchbar from "@/components/Searchbar";
+import buttonEdit from "@/components/ButtonEdit";
+import buttonDelete from "@/components/ButtonDelete";
 
 export default {
   name: "Home",
-  components: { navbar, searchbar },
+  components: {
+    navbar,
+    searchbar,
+    buttonEdit,
+    buttonDelete,
+  },
+
   data() {
     return {
       students: [],
+      inputId: "",
     };
   },
+
+  methods: {
+    updatePage() {
+      axios
+        .get("http://localhost:8082/students")
+        .then((response) => {
+          this.students = response.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    testea($event) {
+      console.log($event.name);
+    },
+  },
+
   async created() {
     try {
       const res = await axios.get("http://localhost:8082/students");
