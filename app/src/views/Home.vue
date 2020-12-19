@@ -5,7 +5,9 @@
     <v-container my-4>
       <v-layout row wrap justify-center>
         <v-sheet class="white px-4 py-2 rounded-lg" width="800" height="600">
-          <h1 class="text-center">Consulta de aluno</h1>
+          <h1 class="text-center">Consulta de alunos</h1>
+
+          <searchbar />
 
           <v-simple-table>
             <template v-slot:default>
@@ -28,7 +30,7 @@
 
               <tbody>
                 <tr v-for="student in students" :key="student.id">
-                  <td id="ra">{{ student.id }}</td>
+                  <td id="ra">{{ student.ra }}</td>
                   <td id="name">{{ student.name }}</td>
                   <td id="cpf">{{ student.cpf }}</td>
 
@@ -55,10 +57,11 @@
 
 import navbar from "@/components/Navbar";
 import axios from "axios";
+import searchbar from "@/components/Searchbar";
 
 export default {
   name: "Home",
-  components: { navbar },
+  components: { navbar, searchbar },
   data() {
     return {
       students: [],

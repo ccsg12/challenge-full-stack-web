@@ -1,6 +1,6 @@
 <template>
   <nav>
-    <v-app-bar app class="blue-grey" dark>
+    <v-app-bar class="blue-grey" dark>
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
       <v-toolbar-title>Toolbar</v-toolbar-title>
       <v-spacer></v-spacer>

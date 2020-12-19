@@ -13,13 +13,19 @@ router.get("/students", (req, res) => {
 
 //cadastra aluno
 router.post("/student", (req, res) => {
-  var { name, cpf, email } = req.body;
+  var { name, cpf, email, ra } = req.body;
 
-  if (name != undefined && cpf != undefined && email != undefined) {
+  if (
+    name != undefined &&
+    cpf != undefined &&
+    email != undefined &&
+    ra != undefined
+  ) {
     Students.create({
       name,
       cpf,
       email,
+      ra,
     }).then(() => {
       res.sendStatus(200);
     });

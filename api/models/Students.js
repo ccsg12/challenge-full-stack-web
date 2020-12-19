@@ -14,9 +14,13 @@ var Students = connection.define("students", {
     type: Sequelize.STRING,
     allowNull: false,
   },
+  ra: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
 });
 
 // Utilizar somente uma vez para criar a tabela
-// Students.sync({ force: true });
+//Students.sync({ force: true });
 
 module.exports = Students;
