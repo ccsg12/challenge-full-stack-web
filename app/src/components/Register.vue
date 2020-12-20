@@ -173,19 +173,19 @@ export default {
                       console.log(error);
                     });
                 } else {
-                  this.registerError = "CPF";
+                  this.registerError = "CPF já registrado";
                   this.dialog1 = !this.dialog1;
                 }
               } else {
-                this.registerError = "RA";
+                this.registerError = "RA já registrado";
                 this.dialog1 = !this.dialog1;
               }
             } else {
-              this.registerError = "Email";
+              this.registerError = "Email já registrado";
               this.dialog1 = !this.dialog1;
             }
           } else {
-            this.registerError = "Nome";
+            this.registerError = "Nome já registrado";
             this.dialog1 = !this.dialog1;
           }
         })
