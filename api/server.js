@@ -3,7 +3,12 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const connection = require("./database/database");
 
+const path = __dirname + "/views/";
+
 const app = express();
+
+//static files
+app.use(express.static(path));
 
 //controller
 const studentsController = require("./controllers/StudentsController");
@@ -29,6 +34,14 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use("/", studentsController);
+
+app.get("/", function (req, res) {
+  res.sendFile(path + "index.html");
+});
+
+app.get("/register", function (req, res) {
+  res.sendFile(path + "index.html");
+});
 
 const PORT = process.env.PORT || 8082;
 app.listen(PORT, () => {
