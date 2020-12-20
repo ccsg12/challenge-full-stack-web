@@ -80,7 +80,7 @@
             <v-card>
               <v-card-title></v-card-title>
 
-              <v-card-text> {{ registerError }} já registrado </v-card-text>
+              <v-card-text> {{ registerError }} </v-card-text>
 
               <v-card-actions>
                 <v-spacer></v-spacer>

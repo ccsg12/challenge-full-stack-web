@@ -5,9 +5,7 @@
     <v-container my-4>
       <v-layout row wrap justify-center>
         <v-card width="600" class="px-4 pb-4">
-          <v-card-title class="text-h3">
-            Cadastro de alunos
-          </v-card-title>
+          <v-card-title class="text-h3"> Cadastro de alunos </v-card-title>
           <v-divider></v-divider>
 
           <v-card-text>
@@ -142,13 +140,16 @@ extend("email", {
 export default {
   name: "Register",
   components: { navbar, ValidationProvider, ValidationObserver },
+
   data: () => ({
     name: "",
     cpf: "",
     email: "",
     ra: "",
     dialog1: false,
+    registerError: "",
   }),
+
   methods: {
     submit() {
       this.$refs.observer.validate();
