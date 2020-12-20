@@ -8,93 +8,101 @@
           <v-card-title class="text-h3">
             Cadastro de alunos
           </v-card-title>
+          <v-divider></v-divider>
 
-          <validation-observer ref="observer" v-slot="{ invalid }">
-            <form @submit.prevent="submit">
-              <validation-provider
-                v-slot="{ errors }"
-                name="Name"
-                rules="required"
-              >
-                <v-text-field
-                  v-model="name"
-                  :error-messages="errors"
-                  label="Nome"
-                  required
-                ></v-text-field>
-              </validation-provider>
+          <v-card-text>
+            <validation-observer ref="observer" v-slot="{ invalid }">
+              <form @submit.prevent="submit">
+                <validation-provider
+                  v-slot="{ errors }"
+                  name="Name"
+                  rules="required"
+                >
+                  <v-text-field
+                    v-model="name"
+                    :error-messages="errors"
+                    label="Nome"
+                    required
+                  ></v-text-field>
+                </validation-provider>
 
-              <validation-provider
-                v-slot="{ errors }"
-                name="email"
-                rules="required|email"
-              >
-                <v-text-field
-                  v-model="email"
-                  :error-messages="errors"
-                  label="E-mail"
-                  required
-                ></v-text-field>
-              </validation-provider>
+                <validation-provider
+                  v-slot="{ errors }"
+                  name="email"
+                  rules="required|email"
+                >
+                  <v-text-field
+                    v-model="email"
+                    :error-messages="errors"
+                    label="E-mail"
+                    required
+                  ></v-text-field>
+                </validation-provider>
 
-              <validation-provider
-                v-slot="{ errors }"
-                name="ra"
-                :rules="{
-                  required: true,
-                  digits: 6,
-                }"
-              >
-                <v-text-field
-                  v-model="ra"
-                  :counter="6"
-                  :error-messages="errors"
-                  label="RA"
-                  required
-                ></v-text-field>
-              </validation-provider>
+                <validation-provider
+                  v-slot="{ errors }"
+                  name="ra"
+                  :rules="{
+                    required: true,
+                    digits: 6,
+                  }"
+                >
+                  <v-text-field
+                    v-model="ra"
+                    :counter="6"
+                    :error-messages="errors"
+                    label="RA"
+                    required
+                  ></v-text-field>
+                </validation-provider>
 
-              <validation-provider
-                v-slot="{ errors }"
-                name="cpf"
-                :rules="{
-                  required: true,
-                  digits: 11,
-                }"
-              >
-                <v-text-field
-                  v-model="cpf"
-                  :counter="11"
-                  :error-messages="errors"
-                  label="CPF (apenas números)"
-                  required
-                ></v-text-field>
-              </validation-provider>
+                <validation-provider
+                  v-slot="{ errors }"
+                  name="cpf"
+                  :rules="{
+                    required: true,
+                    digits: 11,
+                  }"
+                >
+                  <v-text-field
+                    v-model="cpf"
+                    :counter="11"
+                    :error-messages="errors"
+                    label="CPF (apenas números)"
+                    required
+                  ></v-text-field>
+                </validation-provider>
 
-              <v-btn
-                class="mr-4 brown lighten-4"
-                type="submit"
-                :disabled="invalid"
-              >
-                Cadastar
-              </v-btn>
+                <v-btn
+                  class="mr-4 brown lighten-4"
+                  type="submit"
+                  :disabled="invalid"
+                  small
+                >
+                  Cadastar
+                </v-btn>
 
-              <v-dialog v-model="dialog1" max-width="300px">
-                <v-card>
-                  <v-card-title></v-card-title>
+                <v-dialog v-model="dialog1" max-width="300px">
+                  <v-card>
+                    <v-card-title></v-card-title>
 
-                  <v-card-text> {{ registerError }} </v-card-text>
+                    <v-card-text> {{ registerError }} </v-card-text>
 
-                  <v-card-actions>
-                    <v-spacer></v-spacer>
-                    <v-btn text color="green darken-1" @click="dialog1 = false">
-                      Fechar
-                    </v-btn>
-                  </v-card-actions>
-                </v-card>
-              </v-dialog>
-            </form>
-          </validation-observer>
+                    <v-card-actions>
+                      <v-spacer></v-spacer>
+                      <v-btn
+                        text
+                        color="green darken-1"
+                        @click="dialog1 = false"
+                      >
+                        Fechar
+                      </v-btn>
+                    </v-card-actions>
+                  </v-card>
+                </v-dialog>
+              </form>
+            </validation-observer>
+          </v-card-text>
         </v-card>
       </v-layout>
     </v-container>

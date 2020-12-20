@@ -4,46 +4,68 @@
 
     <v-container my-4>
       <v-layout row wrap justify-center>
-        <v-sheet class="white px-4 py-2 rounded-lg" width="800" height="600">
-          <h1 class="text-center">Consulta de alunos</h1>
+        <v-card class="white px-4 pb-4" width="800" height="600">
+          <v-card-title class="text-h3">
+            Consulta de alunos
+          </v-card-title>
+          <v-divider></v-divider>
 
-          <searchbar @cad="updatePage()" />
+          <v-card-text>
+            <searchbar @cad="updatePage()" />
+            <v-simple-table fixed-header height="380">
+              <template v-slot:default>
+                <thead>
+                  <tr>
+                    <th class="text-left">
+                      Registro Acadêmico
+                      <v-btn small icon @click="order(1)">
+                        <v-icon>mdi-menu-down</v-icon>
+                      </v-btn>
+                    </th>
+                    <th class="text-left">
+                      Nome
+                      <v-btn small icon @click="order(2)">
+                        <v-icon>mdi-menu-down</v-icon>
+                      </v-btn>
+                    </th>
+                    <th class="text-left">
+                      CPF
+                      <v-icon>mdi-menu-down</v-icon>
+                    </th>
+                    <th class="text-left">
+                      Ações
+                      <v-icon>mdi-menu-down</v-icon>
+                    </th>
+                  </tr>
+                </thead>
 
-          <v-simple-table fixed-header height="400">
-            <template v-slot:default>
-              <thead>
-                <tr>
-                  <th class="text-left">
-                    Registro Acadêmico
-                  </th>
-                  <th class="text-left">
-                    Nome
-                  </th>
-                  <th class="text-left">
-                    CPF
-                  </th>
-                  <th class="text-left">
-                    Ações
-                  </th>
-                </tr>
-              </thead>
+                <tbody>
+                  <tr v-for="student in students" :key="student.id">
+                    <td id="ra">{{ student.ra }}</td>
+                    <td id="name">{{ student.name }}</td>
+                    <td id="cpf">
+                      {{
+                        student.cpf.replace(
+                          /(\d{3})?(\d{3})?(\d{3})?(\d{2})/,
+                          "$1.$2.$3-$4"
+                        )
+                      }}
+                    </td>
 
-              <tbody>
-                <tr v-for="student in students" :key="student.id">
-                  <td id="ra">{{ student.ra }}</td>
-                  <td id="name">{{ student.name }}</td>
-                  <td id="cpf">{{ student.cpf }}</td>
+                    <td class="text-center">
+                      <buttonEdit :studentData="student" @cad="updatePage()" />
 
-                  <td class="text-center">
-                    <buttonEdit :studentData="student" @cad="updatePage()" />
-
-                    <buttonDelete :studentId="student.id" @del="updatePage()" />
-                  </td>
-                </tr>
-              </tbody>
-            </template>
-          </v-simple-table>
-        </v-sheet>
+                      <buttonDelete
+                        :studentId="student.id"
+                        @del="updatePage()"
+                      />
+                    </td>
+                  </tr>
+                </tbody>
+              </template>
+            </v-simple-table>
+          </v-card-text>
+        </v-card>
       </v-layout>
     </v-container>
   </div>
@@ -71,6 +93,7 @@ export default {
     return {
       students: [],
       inputId: "",
+      cpfModified: "",
     };
   },
 
@@ -84,6 +107,17 @@ export default {
         .catch((error) => {
           console.log(error);
         });
+    },
+    order(v) {
+      if (v == 1) {
+        this.students = this.students.sort((a, b) => a.ra - b.ra);
+      }
+
+      if (v == 2) {
+        this.students = this.students.sort((a, b) => {
+          if (a.name > b.name) return 1;
+        });
+      }
     },
   },
 

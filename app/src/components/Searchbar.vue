@@ -8,7 +8,7 @@
 
     <v-dialog v-model="dialog" persistent max-width="600px">
       <template v-slot:activator="{ on, attrs }">
-        <v-btn class="ml-5 brown lighten-4" v-bind="attrs" v-on="on">
+        <v-btn class="ml-5 brown lighten-4" dark v-bind="attrs" v-on="on">
           Cadastar Aluno
         </v-btn>
       </template>

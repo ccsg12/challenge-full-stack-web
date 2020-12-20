@@ -15,8 +15,18 @@
       </v-btn>
     </v-app-bar>
 
-    <v-navigation-drawer v-model="drawer" app class="brown lighten-4">
-      <v-list>
+    <v-navigation-drawer v-model="drawer" app dark class="brown lighten-4">
+      <v-list class="pt-0">
+        <v-list-item-group>
+          <v-list-item disabled class="brown lighten-2 ">
+            <v-list-item-content>
+              <v-list-item-title class="text-h5">
+                Módulo acadêmico
+              </v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list-item-group>
+
         <v-list-item-group>
           <v-list-item
             v-for="link in links"
@@ -44,8 +54,8 @@ export default {
     return {
       drawer: false,
       links: [
-        { icon: "mdi-home", text: "home", route: "/" },
-        { icon: "mdi-account", text: "Registrar", route: "/register" },
+        { icon: "mdi-account-search", text: "Consulta", route: "/" },
+        { icon: "mdi-account-plus", text: "Registrar", route: "/register" },
       ],
     };
   },
