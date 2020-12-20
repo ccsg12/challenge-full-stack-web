@@ -8,6 +8,7 @@
           <v-card-title class="text-h3">
             Consulta de alunos
           </v-card-title>
+
           <v-divider></v-divider>
 
           <v-card-text>

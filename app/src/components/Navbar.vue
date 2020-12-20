@@ -1,17 +1,18 @@
 <template>
   <nav>
     <v-app-bar class="blue-grey" dark>
-      <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
-      <v-toolbar-title>Toolbar</v-toolbar-title>
-      <v-spacer></v-spacer>
+      <v-app-bar-nav-icon
+        class="grey--text"
+        @click="drawer = !drawer"
+      ></v-app-bar-nav-icon>
 
-      <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
+      <v-toolbar-title class="grey--text text-h4"
+        >Projeto full-stack-web</v-toolbar-title
       >
-        <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
+      <v-spacer></v-spacer>
+      <v-btn text>
+        <v-toolbar-title class="grey--text">Logout</v-toolbar-title>
+        <v-icon class="ml-3 grey--text">mdi-logout-variant</v-icon>
       </v-btn>
     </v-app-bar>
 
