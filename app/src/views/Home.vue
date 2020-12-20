@@ -11,7 +11,11 @@
           <v-divider></v-divider>
 
           <v-card-text>
-            <searchbar @cad="updatePage()" />
+            <searchbar
+              :students="studentsData"
+              @filtered="filterPage($event)"
+              @cad="updatePage()"
+            />
             <v-simple-table fixed-header height="380">
               <template v-slot:default>
                 <thead>
@@ -92,12 +96,14 @@ export default {
   data() {
     return {
       students: [],
-      inputId: "",
-      cpfModified: "",
+      studentsData: [],
     };
   },
 
   methods: {
+    filterPage($event) {
+      this.students = $event.studentsFiltered;
+    },
     updatePage() {
       axios
         .get("http://localhost:8082/students")
@@ -126,6 +132,7 @@ export default {
       const res = await axios.get("http://localhost:8082/students");
 
       this.students = res.data;
+      this.studentsData = res.data;
     } catch (error) {
       console.log(error);
     }

@@ -54,7 +54,7 @@ export default {
     return {
       drawer: false,
       links: [
-        { icon: "mdi-account-search", text: "Consulta", route: "/" },
+        { icon: "mdi-account-search", text: "Consultar", route: "/" },
         { icon: "mdi-account-plus", text: "Registrar", route: "/register" },
       ],
     };

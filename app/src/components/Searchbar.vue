@@ -1,10 +1,21 @@
 <template>
   <v-toolbar dense flat prominent>
-    <v-text-field
+    <v-autocomplete
+      v-model="select"
+      :loading="loading"
+      :items="items"
+      :search-input.sync="search"
+      cache-items
+      class="mx-4"
+      flat
+      hide-no-data
       hide-details
-      prepend-icon="mdi-magnify"
-      single-line
-    ></v-text-field>
+      solo-inverted
+      clearable
+      dense
+      prepend-inner-icon="mdi-magnify"
+      placeholder="Nome"
+    ></v-autocomplete>
 
     <v-dialog v-model="dialog" persistent max-width="600px">
       <template v-slot:activator="{ on, attrs }">
@@ -27,14 +38,48 @@ export default {
     register,
   },
 
+  watch: {
+    search(val) {
+      val !== this.select && this.querySelections(val);
+    },
+  },
+
   data: () => ({
+    loading: false,
+    items: [],
+    search: null,
+    select: null,
+
     dialog: false,
   }),
+
+  props: {
+    students: Array,
+  },
 
   methods: {
     listen() {
       this.$emit("cad");
       this.dialog = false;
+    },
+    querySelections(v) {
+      this.loading = true;
+
+      setTimeout(() => {
+        var studentsFiltered = this.students.filter((e) => {
+          return (
+            (e.name || "").toLowerCase().indexOf((v || "").toLowerCase()) > -1
+          );
+        });
+
+        for (var i = 0; i < studentsFiltered.length; i++) {
+          this.items.push(studentsFiltered[i].name);
+        }
+
+        this.$emit("filtered", { studentsFiltered });
+
+        this.loading = false;
+      }, 500);
     },
   },
 };
