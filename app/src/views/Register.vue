@@ -80,6 +80,8 @@
                   Cadastar
                 </v-btn>
 
+                <v-btn class="ml-4 error" small router to="/"> Cancelar </v-btn>
+
                 <v-dialog v-model="dialog1" max-width="300px">
                   <v-card>
                     <v-card-title></v-card-title>

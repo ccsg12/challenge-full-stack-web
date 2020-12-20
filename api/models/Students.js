@@ -20,7 +20,6 @@ var Students = connection.define("students", {
   },
 });
 
-// Utilizar somente uma vez para criar a tabela
-//Students.sync({ force: true });
+Students.sync({ force: false });
 
 module.exports = Students;
