@@ -110,6 +110,7 @@ export default {
         .get("http://localhost:8082/students")
         .then((response) => {
           this.students = response.data;
+          this.studentsData = response.data;
         })
         .catch((error) => {
           console.log(error);

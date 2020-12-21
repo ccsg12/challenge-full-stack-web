@@ -4,7 +4,7 @@ Para o projeto adotei a arquitetura especificada: uma api montada com Express e 
 
 ## API
 
-Construí de forma que ficasse o mais próxima de uma API rest, apenas realizando tarefas simplificadas de integração do aplicativo com o banco de dados. O servidor inicia em http://localhost:8082/ com o comando `<node server.js>`.
+Construí de forma que ficasse o mais próxima de uma API rest, apenas realizando tarefas simplificadas de integração do aplicativo com o banco de dados.
 
 Bibliotecas utilizadas:
 
@@ -20,8 +20,6 @@ Utilizei vue como framework e vuetify para facilitar a construção de component
 
 Implementei um pequeno sistema de busca e atualização da página em cima do nome dos estudantes, utilizando um componente do vuetify.
 
-O aplicativo inicia em http://localhost:8080/ com o comando `<npm run serve>`
-
 Além das bibliotecas já instaladas em uma aplicação vue utilizei:
 
 - vuetify
@@ -30,3 +28,12 @@ Além das bibliotecas já instaladas em uma aplicação vue utilizei:
 - vee-validate - outro plugin do vue que auxilia na validação de formulários
 
 Consegui implementar todos os requisitos obrigatórios, mas ainda há espaços para melhoria. Tentei implementar um sistema de login com o express-sessions mas acabou não dando muito certo, então voltei para uma versão anterior do arquivo. Além disso, o sistema de busca poderia ter sido melhor implementado, mas não consegui fazer.
+
+# Inicialização
+
+Após buildar o aplicativo vue, consegui fazer com que operasse no mesmo endereço http://localhost:8082/ com o comando `<npm server.js>`, a partir da pasta api.
+
+# Hospedagem
+
+Fiz a hospedagem do aplicativo em um VPS mas não ficou muito bom, o front end pareceu renderizar bem, mas a interação com o banco de dados não funcionou, então não consegui manipular os dados necessários e não consegui resolver o problema a tempo.
+De qualquer forma o app pode ser acessado por http://104.131.19.205/. A versão local do app funcionou sem problemas.
