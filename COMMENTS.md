@@ -31,7 +31,7 @@ Consegui implementar todos os requisitos obrigatórios, mas ainda há espaços p
 
 # Inicialização
 
-Após buildar o aplicativo vue, consegui fazer com que operasse no mesmo endereço http://localhost:8082/ com o comando `<npm server.js>`, a partir da pasta api.
+Após buildar o aplicativo vue, consegui fazer com que operasse no mesmo endereço http://localhost:8082/ com o comando `<node server.js>`, a partir da pasta api.
 
 # Hospedagem
 
